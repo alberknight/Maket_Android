@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "206146956891",
+    "project_id": "marketplace-7152d",
+    "storage_bucket": "marketplace-7152d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:206146956891:android:95a5d94e20ff743d5dd97e",
+        "android_client_info": {
+          "package_name": "com.example.apiconecta1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADgRaXjMb19_89FnMyVWYaAstotzF_Obk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:206146956891:android:e849615b048641305dd97e",
+        "android_client_info": {
+          "package_name": "com.example.conectaapi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADgRaXjMb19_89FnMyVWYaAstotzF_Obk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
