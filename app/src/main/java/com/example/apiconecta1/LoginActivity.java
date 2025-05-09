@@ -23,6 +23,9 @@ public class LoginActivity extends AppCompatActivity {
 
         Button btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(v -> loginUser());
+        // Botón "Olvidé mi contraseña"
+        Button btnForgotPassword = findViewById(R.id.btnForgotPassword);
+        btnForgotPassword.setOnClickListener(v -> resetPassword());
     }
 
     private void loginUser() {
@@ -33,13 +36,32 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        // Iniciar sesión con Firebase Auth
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Redirigir al MainActivity después del login
-                        startActivity(new Intent(this, MainActivity.class));
-                        finish();
+                        // Redirigir a CatalogoActivity
+                        startActivity(new Intent(this, CatalogoActivity.class));
+                        finish(); // Cerrar LoginActivity para evitar volver atrás
+                    } else {
+                        Toast.makeText(this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
+    private void resetPassword() {
+        String email = etEmail.getText().toString().trim();
+
+        if (email.isEmpty()) {
+            Toast.makeText(this, "Ingresa tu correo electrónico sin la contraseña", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Enviar correo de restablecimiento
+        mAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(this, "Correo enviado a " + email, Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }

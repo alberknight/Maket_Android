@@ -1,12 +1,11 @@
 package com.example.apiconecta1;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
@@ -27,7 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        // Referencias a los EditText
+        // Vincular vistas
         etUsername = findViewById(R.id.etUsername);
         etEmail = findViewById(R.id.etEmail);
         etPhone = findViewById(R.id.etPhone);
@@ -35,12 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
 
         Button btnRegister = findViewById(R.id.btnRegister);
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                registerUser();
-            }
-        });
+        btnRegister.setOnClickListener(v -> registerUser());
     }
 
     private void registerUser() {
@@ -50,8 +44,14 @@ public class RegisterActivity extends AppCompatActivity {
         String phone = etPhone.getText().toString().trim();
         String address = etAddress.getText().toString().trim();
 
+        // Validaciones básicas
         if (email.isEmpty() || password.isEmpty() || username.isEmpty()) {
             Toast.makeText(this, "Nombre, correo y contraseña son obligatorios", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (password.length() < 6) {
+            Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -63,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
                         String userId = mAuth.getCurrentUser().getUid();
                         saveUserToFirestore(userId, username, email, phone, address);
                     } else {
-                        Toast.makeText(this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Error al registrar: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
     }
@@ -74,16 +74,19 @@ public class RegisterActivity extends AppCompatActivity {
         user.put("email", email);
         user.put("phone", phone);
         user.put("address", address);
+        user.put("timestamp", System.currentTimeMillis());
 
         db.collection("users").document(userId)
                 .set(user)
                 .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "¡Registro exitoso!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(this, MainActivity.class));
+                    Toast.makeText(this, "Registro completado!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, CatalogoActivity.class));
                     finish();
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Error al guardar datos: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Error al guardar datos: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    // Opcional: eliminar el usuario creado en Auth si falla Firestore
+                    mAuth.getCurrentUser().delete();
                 });
     }
 }
