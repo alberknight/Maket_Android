@@ -24,6 +24,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".CatalogoActivity" />
+        <activity android:name=".PublicacionActivity" />
     </application>
 
 </manifest>

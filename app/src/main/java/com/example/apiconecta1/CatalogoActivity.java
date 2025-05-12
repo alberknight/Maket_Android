@@ -20,6 +20,12 @@ public class CatalogoActivity extends AppCompatActivity {
         String userEmail = mAuth.getCurrentUser() != null ? mAuth.getCurrentUser().getEmail() : "Invitado";
         Toast.makeText(this, "Bienvenido: " + userEmail, Toast.LENGTH_SHORT).show();
 
+        // Dentro de onCreate() de CatalogoActivity
+        Button btnNuevaPublicacion = findViewById(R.id.btnNuevaPublicacion);
+        btnNuevaPublicacion.setOnClickListener(v -> {
+            startActivity(new Intent(this, PublicacionActivity.class));
+        });
+
         // Botón para cerrar sesión
         Button btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -40,4 +46,5 @@ public class CatalogoActivity extends AppCompatActivity {
         startActivity(intent);
         finish(); // Cierra la actividad actual
     }
+
 }
