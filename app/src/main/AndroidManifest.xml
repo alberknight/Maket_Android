@@ -23,8 +23,8 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".CatalogoActivity" />
-        <activity android:name=".PublicacionActivity" />
+        <activity android:name=".CatalogoResenasActivity" />
+        <activity android:name=".NuevaResenaActivity" />
     </application>
 
 </manifest>

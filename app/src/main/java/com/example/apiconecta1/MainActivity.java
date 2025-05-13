@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             // Usuario ya está autenticado, redirigir a CatalogoActivity
-            startActivity(new Intent(this, CatalogoActivity.class));
+            startActivity(new Intent(this, CatalogoResenasActivity.class));
             finish(); // Evitar que el usuario regrese a MainActivity con el botón "Atrás"
             return; // Salir del método onCreate para evitar ejecutar el resto del código
         }

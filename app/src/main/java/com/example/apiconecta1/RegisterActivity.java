@@ -80,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .set(user)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(this, "Registro completado!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(this, CatalogoActivity.class));
+                    startActivity(new Intent(this, CatalogoResenasActivity.class));
                     finish();
                 })
                 .addOnFailureListener(e -> {

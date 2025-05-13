@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Redirigir a CatalogoActivity
-                        startActivity(new Intent(this, CatalogoActivity.class));
+                        startActivity(new Intent(this, CatalogoResenasActivity.class));
                         finish(); // Cerrar LoginActivity para evitar volver atrás
                     } else {
                         Toast.makeText(this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

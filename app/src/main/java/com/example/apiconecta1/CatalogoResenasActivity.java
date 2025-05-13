@@ -6,24 +6,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class CatalogoActivity extends AppCompatActivity {
+public class CatalogoResenasActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_catalogo);
+        setContentView(R.layout.activity_catalogo_resenas);
 
         // Mostrar email del usuario actual (opcional)
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String userEmail = mAuth.getCurrentUser() != null ? mAuth.getCurrentUser().getEmail() : "Invitado";
         Toast.makeText(this, "Bienvenido: " + userEmail, Toast.LENGTH_SHORT).show();
 
-        // Dentro de onCreate() de CatalogoActivity
+        // Configurar botón para nueva publicación
         Button btnNuevaPublicacion = findViewById(R.id.btnNuevaPublicacion);
         btnNuevaPublicacion.setOnClickListener(v -> {
-            startActivity(new Intent(this, PublicacionActivity.class));
+            startActivity(new Intent(this, NuevaResenaActivity.class));
         });
 
         // Botón para cerrar sesión
@@ -33,6 +34,12 @@ public class CatalogoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 logoutUser();
             }
+        });
+
+        // Configurar Floating Action Button (FAB) para abrir NuevaResenaActivity
+        FloatingActionButton fabNuevaResena = findViewById(R.id.fabNuevaResena);
+        fabNuevaResena.setOnClickListener(v -> {
+            startActivity(new Intent(this, NuevaResenaActivity.class));
         });
     }
 
@@ -46,5 +53,4 @@ public class CatalogoActivity extends AppCompatActivity {
         startActivity(intent);
         finish(); // Cierra la actividad actual
     }
-
 }
