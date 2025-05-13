@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class ResenaAdapter extends RecyclerView.Adapter<ResenaAdapter.ResenaViewHolder> {
+
     private List<Resena> resenas;
 
     public ResenaAdapter(List<Resena> resenas) {
@@ -29,11 +30,11 @@ public class ResenaAdapter extends RecyclerView.Adapter<ResenaAdapter.ResenaView
     @Override
     public void onBindViewHolder(@NonNull ResenaViewHolder holder, int position) {
         Resena resena = resenas.get(position);
-        holder.tvLugar.setText(resena.getLugar());
+
         holder.tvUsuario.setText(resena.getNombreUsuario());
+        holder.tvFecha.setText(resena.getFecha());
         holder.ratingBar.setRating(resena.getPuntuacion());
         holder.tvComentario.setText(resena.getComentario());
-        holder.tvFecha.setText(resena.getFecha());
     }
 
     @Override
@@ -42,15 +43,14 @@ public class ResenaAdapter extends RecyclerView.Adapter<ResenaAdapter.ResenaView
     }
 
     public static class ResenaViewHolder extends RecyclerView.ViewHolder {
-        TextView tvLugar, tvUsuario, tvComentario, tvFecha;
+        TextView tvUsuario, tvFecha, tvComentario;
         RatingBar ratingBar;
 
         public ResenaViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvLugar = itemView.findViewById(R.id.tvLugar);
             tvUsuario = itemView.findViewById(R.id.tvUsuario);
-            tvComentario = itemView.findViewById(R.id.tvComentario);
             tvFecha = itemView.findViewById(R.id.tvFecha);
+            tvComentario = itemView.findViewById(R.id.tvComentario);
             ratingBar = itemView.findViewById(R.id.ratingBar);
         }
     }
