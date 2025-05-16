@@ -15,20 +15,22 @@
         android:padding="16dp">
 
         <!-- Nombre del lugar -->
+
+        <!-- Fila: Usuario + Fecha -->
         <TextView
             android:id="@+id/tvLugar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:textColor="@color/colorDarkGray"
             android:textSize="18sp"
-            android:textColor="@color/primaryDark"/>
+            android:textStyle="bold" />
 
-        <!-- Fila: Usuario + Fecha -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:orientation="horizontal"
+            android:textColor="@color/colorDarkRed"
             android:gravity="center">
 
             <TextView
@@ -36,14 +38,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:textColor="@color/gray_700"/>
+                android:textColor="@color/colorDarkGray" />
 
             <TextView
                 android:id="@+id/tvFecha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:textColor="@color/gray_500"/>
+                android:textColor="@color/colorDarkGray" />
         </LinearLayout>
 
         <!-- Puntuación -->
@@ -55,7 +57,8 @@
             android:isIndicator="true"
             android:numStars="5"
             android:stepSize="0.5"
-            style="@style/Widget.AppCompat.RatingBar.Small"/>
+            android:progressTint="@color/colorButtonYellow"
+            style="@style/Widget.AppCompat.RatingBar.Small" />
 
         <!-- Comentario -->
         <TextView

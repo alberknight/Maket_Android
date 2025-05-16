@@ -7,4 +7,24 @@
     <color name="gray_700">#FF757575</color>
     <color name="gray_500">#FF9E9E9E</color>
     <color name="gray_800">#FF424242</color>
+        <color name="colorPrimary">#4CAF50</color> <!-- Verde -->
+        <color name="colorPrimaryDark">#388E3C</color> <!-- Verde oscuro -->
+        <color name="colorAccent">#FF5722</color> <!-- Naranja -->
+
+        <!-- Colores adicionales -->
+        <color name="colorButtonBlue">#2196F3</color> <!-- Azul -->
+        <color name="colorButtonYellow">#FFEB3B</color> <!-- Amarillo -->
+        <color name="colorButtonRed">#F44336</color> <!-- Rojo -->
+        <color name="colorButtonTeal">#009688</color> <!-- Verde azulado -->
+        <color name="colorButtonPurple">#9C27B0</color> <!-- Púrpura -->
+    <color name="colorLightGray">#F5F5F5</color>
+    <color name="colorLightBlue">#64B5F6</color> <!-- Azul claro -->
+    <color name="colorDarkBlue">#0D47A1</color> <!-- Azul oscuro -->
+    <color name="colorDarkRed">#B71C1C</color> <!-- Rojo oscuro -->
+    <color name="colorDarkGreen">#1B5E20</color> <!-- Verde oscuro -->
+    <color name="colorDarkPurple">#4A148C</color> <!-- Púrpura oscuro -->
+    <color name="colorDarkTeal">#004D40</color> <!-- Verde azulado oscuro -->
+    <color name="colorDarkGray">#212121</color> <!-- Gris oscuro -->
+    <color name="colorDarkOrange">#E65100</color> <!-- Naranja oscuro -->
+    <color name="colorDarkYellow">#F57F17</color> <!-- Amarillo oscuro -->
 </resources>

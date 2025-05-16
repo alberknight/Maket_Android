@@ -4,6 +4,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.DocumentChange;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -35,6 +37,9 @@ public class CatalogoResenasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalogo_resenas);
 
+        // Configurar Toolbar
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         // Configurar RecyclerView
         rvResenas = findViewById(R.id.rvResenas);
@@ -106,5 +111,28 @@ public class CatalogoResenasActivity extends AppCompatActivity {
 
                     adapter.updateData(nuevasResenas, nuevosIds);
                 });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_catalogo_resenas, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_detalles_cuenta) {
+            // Navegar a ProfileActivity
+            startActivity(new Intent(this, ProfileActivity.class));
+            return true;
+        } else if (id == R.id.action_cerrar_sesion) {
+            // Cerrar sesión
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
