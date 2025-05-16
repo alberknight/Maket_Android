@@ -49,16 +49,9 @@ public class CatalogoResenasActivity extends AppCompatActivity {
 
         // Botones
         fabNuevaResena = findViewById(R.id.fabNuevaResena);
-        btnLogout = findViewById(R.id.btnLogout);
 
         fabNuevaResena.setOnClickListener(v -> {
             startActivity(new Intent(this, NuevaResenaActivity.class));
-        });
-
-        btnLogout.setOnClickListener(v -> {
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
         });
 
         cargarResenas();
