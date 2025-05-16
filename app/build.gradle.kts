@@ -48,4 +48,5 @@ dependencies {
     implementation ("com.google.firebase:firebase-firestore:24.7.0")
     implementation ("com.google.firebase:firebase-storage:20.2.1")
     implementation ("com.squareup.picasso:picasso:2.71828") // Para mostrar imágenes
+    implementation ("com.google.firebase:firebase-firestore:24.7.1")
 }

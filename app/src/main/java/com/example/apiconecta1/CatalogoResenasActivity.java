@@ -1,5 +1,7 @@
 package com.example.apiconecta1;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.DocumentChange;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,16 +28,18 @@ public class CatalogoResenasActivity extends AppCompatActivity {
     private ResenaAdapter adapter;
     private FloatingActionButton fabNuevaResena;
     private Button btnLogout;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalogo_resenas);
 
+
         // Configurar RecyclerView
         rvResenas = findViewById(R.id.rvResenas);
         rvResenas.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ResenaAdapter(new ArrayList<>());
+        adapter = new ResenaAdapter(new ArrayList<>(), new ArrayList<>());
         rvResenas.setAdapter(adapter);
 
         // Botones
@@ -55,22 +60,51 @@ public class CatalogoResenasActivity extends AppCompatActivity {
     }
 
     private void cargarResenas() {
+        String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         FirebaseFirestore.getInstance().collection("resenas")
+                .whereNotEqualTo("usuarioId", currentUserId)
                 .orderBy("timestamp", Query.Direction.DESCENDING)
                 .addSnapshotListener((value, error) -> {
                     if (error != null) {
-                        Toast.makeText(this, "Error al cargar reseñas", Toast.LENGTH_SHORT).show();
+                        Log.e("FirestoreError", "Error al cargar reseñas", error);
+                        Snackbar.make(rvResenas, "Error al cargar reseñas", Snackbar.LENGTH_LONG)
+                                .setAction("Reintentar", v -> cargarResenas())
+                                .show();
                         return;
                     }
 
-                    List<Resena> resenas = new ArrayList<>();
-                    for (DocumentSnapshot doc : value.getDocuments()) {
-                        Resena resena = doc.toObject(Resena.class);
-                        resena.setId(doc.getId());
-                        resenas.add(resena);
+                    // 1. Procesar cambios individuales (incluyendo eliminaciones)
+                    if (value != null) {
+                        for (DocumentChange dc : value.getDocumentChanges()) {
+                            switch (dc.getType()) {
+                                case REMOVED:
+                                    adapter.removeResena(dc.getDocument().getId());
+                                    break;
+                                case ADDED:
+                                case MODIFIED:
+                                    // Estos casos se manejarán en la actualización completa
+                                    break;
+                            }
+                        }
                     }
-                    adapter = new ResenaAdapter(resenas);
-                    rvResenas.setAdapter(adapter);
+
+                    // 2. Actualización completa de la lista
+                    List<Resena> nuevasResenas = new ArrayList<>();
+                    List<String> nuevosIds = new ArrayList<>();
+
+                    if (value != null) {
+                        for (DocumentSnapshot doc : value.getDocuments()) {
+                            Resena resena = doc.toObject(Resena.class);
+                            if (resena != null) {
+                                resena.setId(doc.getId());
+                                nuevasResenas.add(resena);
+                                nuevosIds.add(doc.getId());
+                            }
+                        }
+                    }
+
+                    adapter.updateData(nuevasResenas, nuevosIds);
                 });
     }
 }
