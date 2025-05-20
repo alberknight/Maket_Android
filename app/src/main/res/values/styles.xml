@@ -4,4 +4,8 @@
         <item name="android:textColor">#FF0000</item> <!-- Cambia el color del texto -->
         <item name="android:background">#FFFFFF</item> <!-- Cambia el color de fondo -->
     </style>
+    <style name="WarningButton" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">#E65100</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 </resources>
